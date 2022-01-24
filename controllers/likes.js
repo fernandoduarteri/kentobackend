@@ -5,8 +5,9 @@ const getLikes = async (req = request, res = response) => {
     const pool = await dbConnection();
     const id = parseInt(req.params.id)
     try {
-        const response = await pool.query("SELECT A.fan_of_music_group FROM public.user_likes as A, public.users as B WHERE A.user_id=B.user_id AND A.user_id=" + id + " ORDER BY A.fan_of_music_group ASC");
-        
+       //const response = await pool.query("SELECT A.fan_of_music_group FROM public.user_likes as A, public.users as B WHERE A.user_id=B.user_id AND A.user_id=" + id + " ORDER BY A.fan_of_music_group ASC");
+        const response = await pool.query("SELECT kento_test("+id+") as fan_of_music_group");
+        console.log(response);
         res.status(200).json({
             ok: true,
             data: response.rows
@@ -19,6 +20,8 @@ const getLikes = async (req = request, res = response) => {
         })
     }
 }
+
+
 
 module.exports = {
     getLikes
